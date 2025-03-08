@@ -22,8 +22,15 @@ public class ExpenseService {
     public Optional<Expense> getExpenseById(Long id) {
         return expenseRepository.findById(id);
     }
-    public Expense addExpense(Expense expense) {
-        return expenseRepository.save(expense);
+    public List<Expense> addExpense(List<Expense> expense) {
+        return expenseRepository.saveAll(expense);
+    }
+    public void deleteExpenseByID(Long id) {
+        if (expenseRepository.existsById(id)){
+            expenseRepository.deleteById(id);
+        }else{
+            throw new RuntimeException("Expense with id " + id + " does not exist");
+        }
     }
 
 

@@ -27,8 +27,12 @@ public class ExpenseController {
         return expense.getExpenseById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Expense not found"));
     }
     @PostMapping("/")
-    public Expense addExpense(@RequestBody Expense newExpense) {
+    public List<Expense> addExpense(@RequestBody List<Expense> newExpense) {
         return expense.addExpense(newExpense);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteExpense(@PathVariable long id) {
+        expense.deleteExpenseByID(id);
     }
 
 }

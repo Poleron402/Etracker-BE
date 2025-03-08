@@ -27,7 +27,9 @@ class Expense {
                 ", type=" + type +
                 '}';
     }
-
+    public long getId() {
+        return id;
+    }
     public float getExpense() {
         return expense;
     }
