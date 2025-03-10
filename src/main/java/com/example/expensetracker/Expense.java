@@ -5,7 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 class Expense {
@@ -14,9 +18,18 @@ class Expense {
     private long id;
     private float expense;
     private Type type;
-    public Expense(float expense, Type type) {
+    private LocalDateTime date = LocalDateTime.now();
+    private String note;
+    public Expense(float expense, Type type, LocalDateTime date, String note) {
         this.expense = expense;
         this.type = type;
+        this.date = date;
+        this.note = note;
+    }
+    public Expense(float expense, Type type, String note) {
+        this.expense = expense;
+        this.type = type;
+        this.note = note;
     }
     public Expense() {}
 
@@ -27,6 +40,7 @@ class Expense {
                 ", type=" + type +
                 '}';
     }
+
     public long getId() {
         return id;
     }
@@ -44,5 +58,21 @@ class Expense {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

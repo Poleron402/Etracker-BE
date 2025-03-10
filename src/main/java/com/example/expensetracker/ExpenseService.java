@@ -3,6 +3,7 @@ package com.example.expensetracker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +23,8 @@ public class ExpenseService {
     public Optional<Expense> getExpenseById(Long id) {
         return expenseRepository.findById(id);
     }
-    public List<Expense> addExpense(List<Expense> expense) {
-        return expenseRepository.saveAll(expense);
+    public Expense addExpense(Expense expense) {
+        return expenseRepository.save(expense);
     }
     public void deleteExpenseByID(Long id) {
         if (expenseRepository.existsById(id)){
@@ -32,6 +33,8 @@ public class ExpenseService {
             throw new RuntimeException("Expense with id " + id + " does not exist");
         }
     }
-
+    public List<Type> getExpenseTypes() {
+        return Arrays.asList(Type.values());
+    }
 
 }
