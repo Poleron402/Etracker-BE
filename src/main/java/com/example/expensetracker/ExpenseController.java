@@ -1,14 +1,14 @@
 package com.example.expensetracker;
 
 
+import com.example.expensetracker.entities.Expense;
+import com.example.expensetracker.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -18,7 +18,7 @@ public class ExpenseController {
     private ExpenseService expense;
 
     @GetMapping("/")
-    public List<Expense> getExpenses() {
+    public Iterable<Expense> getExpenses() {
         return expense.getAllExpenses();
     }
 
