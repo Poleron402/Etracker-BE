@@ -2,10 +2,7 @@ package com.example.expensetracker.entities;
 
 import com.example.expensetracker.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,15 +12,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name="users")
+
 @Entity
-public class User implements UserDetails {
+@Table(name="user")
+@Getter @Setter
+public class User implements UserDetails{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Integer id;
 
@@ -31,7 +26,9 @@ public class User implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-    private String name;
+    private String firstName;
+    @Column(nullable = false)
+    private String lastName;
 
     @Column(nullable = false)
     private String password;
@@ -52,9 +49,14 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+    @Override
+    public String getPassword() {
+        return password;
     }
     @Override
     public String getUsername() {
@@ -65,6 +67,7 @@ public class User implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -76,7 +79,6 @@ public class User implements UserDetails {
     }
 
     @Override
-
     public boolean isEnabled() {
         return true;
     }

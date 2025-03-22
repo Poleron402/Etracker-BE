@@ -1,6 +1,7 @@
-package com.example.expensetracker;
+package com.example.expensetracker.controllers;
 
 
+import com.example.expensetracker.Type;
 import com.example.expensetracker.entities.Expense;
 import com.example.expensetracker.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
