@@ -16,11 +16,13 @@ import java.util.List;
 @Entity
 @Table(name="users")
 @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private Integer id;
+    private Integer userId;
 
     @Column(unique = true, length=100, nullable=false)
     private String email;

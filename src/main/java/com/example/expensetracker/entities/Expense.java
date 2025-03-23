@@ -2,6 +2,7 @@ package com.example.expensetracker.entities;
 
 
 import com.example.expensetracker.Type;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -16,17 +17,20 @@ public class Expense {
     private LocalDateTime date = LocalDateTime.now();
     private String note;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(table = "users", name="id")
+    @JoinColumn(name="userId")
     private User user;
 
 
-    public Expense(float expense, Type type, LocalDateTime date, String note) {
+    public Expense(float expense, Type type, String note, LocalDateTime date, User user) {
         this.expense = expense;
         this.type = type;
-        this.date = date;
         this.note = note;
+        this.date = date;
+        this.user = user;
     }
+
     public Expense(float expense, Type type, String note) {
         this.expense = expense;
         this.type = type;

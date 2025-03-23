@@ -6,7 +6,9 @@ import com.example.expensetracker.entities.User;
 import com.example.expensetracker.repositories.ExpenseRepository;
 import com.example.expensetracker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,15 +24,11 @@ public class ExpenseService {
         this.userRepository = userRepository;
     }
 
-    public Iterable<Expense> getMyExpenses(Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow("There is a problem on our end");
-        return expenseRepository.findAll();
+    public Iterable<Expense> getMyExpenses(String userName) {
+        User user = userRepository.findByEmail(userName).orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User cannot be found"));
+        return expenseRepository.findByUser(user);
     }
 
-
-    public Optional<Expense> getExpenseById(Long id) {
-        return expenseRepository.findById(id);
-    }
     public Expense addExpense(Expense expense) {
         return expenseRepository.save(expense);
     }
