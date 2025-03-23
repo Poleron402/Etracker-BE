@@ -14,11 +14,11 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 @Getter @Setter
 public class User implements UserDetails{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private Integer id;
 
@@ -58,9 +58,14 @@ public class User implements UserDetails{
     public String getPassword() {
         return password;
     }
+
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public void setUsername(String username) {
+        this.email = username;
     }
 
     @Override

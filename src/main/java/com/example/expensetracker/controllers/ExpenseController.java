@@ -18,9 +18,11 @@ public class ExpenseController {
     @Autowired
     private ExpenseService expense;
 
-    @GetMapping("/")
-    public Iterable<Expense> getExpenses() {
-        return expense.getAllExpenses();
+    @GetMapping("/{userId}")
+    public Iterable<Expense> getExpenses(
+            @PathVariable int userId
+    ) {
+        return expense.getMyExpenses(userId);
     }
 
     @GetMapping("/{id}")

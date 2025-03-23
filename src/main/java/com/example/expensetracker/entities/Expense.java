@@ -2,10 +2,7 @@ package com.example.expensetracker.entities;
 
 
 import com.example.expensetracker.Type;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +15,12 @@ public class Expense {
     private Type type;
     private LocalDateTime date = LocalDateTime.now();
     private String note;
+
+    @ManyToOne
+    @JoinColumn(table = "users", name="id")
+    private User user;
+
+
     public Expense(float expense, Type type, LocalDateTime date, String note) {
         this.expense = expense;
         this.type = type;
@@ -72,5 +75,11 @@ public class Expense {
 
     public void setNote(String note) {
         this.note = note;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -8,6 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class JWTService {
 
     public boolean isValid(String token, UserDetails user){
         String username = extractUsername(token);
-        return username.equals(user.getUsername() && isTokenExpired(token));
+        return username.equals(user.getUsername()) && !isTokenExpired(token);
     }
 
     public boolean isTokenExpired(String token){
