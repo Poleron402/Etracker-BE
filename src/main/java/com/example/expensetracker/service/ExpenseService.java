@@ -29,6 +29,14 @@ public class ExpenseService {
         return expenseRepository.findByUser(user);
     }
 
+    public Expense updateExpense(Expense expense) {
+        Expense updatedExpense = expenseRepository.findById(expense.getId());
+        updatedExpense.setDate(expense.getDate());
+        updatedExpense.setType(expense.getType());
+        updatedExpense.setNote(expense.getNote());
+        return expenseRepository.save(updatedExpense);
+    }
+
     public Expense addExpense(Expense expense) {
         return expenseRepository.save(expense);
     }

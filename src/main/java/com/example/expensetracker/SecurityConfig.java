@@ -6,6 +6,7 @@ import com.example.expensetracker.service.UserDetailsServiceImp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,12 +32,14 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
+        return http
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req->req.requestMatchers("/login/**", "/register/**")
                                 .permitAll()
                                 .requestMatchers("/admin_only/**").hasRole("ADMIN")
-                                .anyRequest()
+                                .requestMatchers("/expenses/**")
                                 .authenticated()
                 ).userDetailsService(userDetailsServiceImp)
                 .sessionManagement(session->session.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))

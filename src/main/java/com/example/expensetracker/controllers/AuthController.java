@@ -5,10 +5,11 @@ import com.example.expensetracker.entities.AuthenticationResponse;
 import com.example.expensetracker.entities.User;
 import com.example.expensetracker.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+@CrossOrigin
 @RestController
 public class AuthController {
     private final AuthenticationService authenticationService;

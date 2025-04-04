@@ -15,8 +15,8 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/expenses")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ExpenseController {
     @Autowired
     private ExpenseService expense;
@@ -31,6 +31,13 @@ public class ExpenseController {
     ) {
         String email = principal.getName();
         return expense.getMyExpenses(email);
+    }
+
+    @PutMapping("/{id}")
+    public Expense updateExpense(
+            @RequestBody Expense updateExpense, @PathVariable int id
+    ){
+        return expense.updateExpense(updateExpense);
     }
 
     @PostMapping("/")
