@@ -5,10 +5,8 @@ import com.example.expensetracker.entities.AuthenticationResponse;
 import com.example.expensetracker.entities.User;
 import com.example.expensetracker.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @CrossOrigin
 @RestController
 public class AuthController {
@@ -28,4 +26,8 @@ public class AuthController {
         return ResponseEntity.ok(authenticationService.authenticate(user));
     }
 
+    @GetMapping("/api/auth/check")
+    public ResponseEntity<?> checkToken(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok().body(token);
+    }
 }
